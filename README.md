@@ -19,3 +19,6 @@ Remove any member from your workspace/boards.
 Leave any workspace/board you are member of.
 Assign Admin Previliage to any member of your workspace/board.
 Search for any Workspace/board and visit it as a Guest.
+
+
+Project is incomplete. Work in progress.
