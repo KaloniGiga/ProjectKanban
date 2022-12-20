@@ -100,7 +100,7 @@ export const registerUser = async (req: Request, res:Response, next:NextFunction
            const verificationToken = await crypto.randomBytes(20).toString('hex');
            console.log(verificationToken);
 
-           const emailver = await EmailVerify.create({userId: user._id, EmailVerifyToken: verificationToken});
+         //  const emailver = await EmailVerify.create({userId: user._id, EmailVerifyToken: verificationToken});
            console.log("verification token saved to database");
 
           //send the verification email to the user
@@ -115,21 +115,21 @@ export const registerUser = async (req: Request, res:Response, next:NextFunction
 
 
           //mail options
-          const mailOptions = {
-             from: process.env.GMAIL,
-             to: user.email,
-             subject: "Verify Email",
-             html: `
-                 <h1>Verify your email address</h1>
-                 <p style="font-size: 16px; font-weight: 600">Click to link below to verify Email. </p>
-                 <p style="font-size: 14px; font-weight: 600; color: red;">Ignore this if you don't ask for it</p>
-                 <br />
-                 <a style = "font-size: 14px;" href=${process.env.CLIENT_URL}/email/verify/${verificationToken}?uid=${emailver._id} > Click here to verify your email </a>
-             `
-          }
+        //   const mailOptions = {
+        //      from: process.env.GMAIL,
+        //      to: user.email,
+        //      subject: "Verify Email",
+        //      html: `
+        //          <h1>Verify your email address</h1>
+        //          <p style="font-size: 16px; font-weight: 600">Click to link below to verify Email. </p>
+        //          <p style="font-size: 14px; font-weight: 600; color: red;">Ignore this if you don't ask for it</p>
+        //          <br />
+        //          <a style = "font-size: 14px;" href=${process.env.CLIENT_URL}/email/verify/${verificationToken}?uid=${emailver._id} > Click here to verify your email </a>
+        //      `
+        //   }
 
           //send email
-         SendEmail(mailOptions);
+        //  SendEmail(mailOptions)
 
        return res.status(201).json({
         success: true,

@@ -5,12 +5,20 @@ import Button from '../../component/button/Button';
 import Input from '../../component/Input/Input';
 import {NavLink} from 'react-router-dom'
 import axiosInstance from '../../http';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../redux/features/authSlice';
+import { RootState } from '../../redux/app/store';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+
 
 
 function LoginPage() {
     const dispatch = useDispatch();
+    const {accessToken , refreshToken} = useSelector(
+      (state:RootState) => state.auth
+  )
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState('');
@@ -47,8 +55,11 @@ function LoginPage() {
               refreshToken: data.token.refreshToken,
             })
            )
-
+            
+  
+           console.log(accessToken, refreshToken)
            setIsSubmitting(false);
+           navigate("/home");
            
         }).catch((err) => {
             

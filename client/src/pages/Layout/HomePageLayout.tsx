@@ -27,7 +27,7 @@ function HomePageLayout() {
       <div className="flex flex-col">
        <Navbar />
 
-       <section className="flex flex-1 bg-primary" style={{minHeight: '92vh'}}>
+       <section className="flex flex-1 " style={{minHeight: '92vh'}}>
          <Sidebar show={show} onClick={handleClick}/> 
 
          <main className={`flex-1 bg-secondary`} >

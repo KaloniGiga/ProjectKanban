@@ -20,9 +20,24 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:4000/api/v1/workspace/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "dipak",
+    "description": "this ithe iettjnot eieido dodod",
+    "members": []
+}
+
+###
+
+
 POST http://localhost:4000/api/v1/google HTTP/1.1
 Content-Type: application/json
 
 {
     "tokenId": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1NTEwNGEzN2ZhOTAzZWQ4MGM1NzE0NWVjOWU4M2VkYjI5YjBjNDUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2NjU5MTAwMjMsImF1ZCI6IjEyMTc4MDg1OTgxNC1taDI2cnV2bTI4ZTBxMjJscjJ0Y2NlZjdkMjluMzd0Ni5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwMTY0MjAxMTU0MzIwMzkxNzkzNSIsImVtYWlsIjoiZGlwYWtrYWxhdW5pOEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXpwIjoiMTIxNzgwODU5ODE0LW1oMjZydXZtMjhlMHEyMmxyMnRjY2VmN2QyOW4zN3Q2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwibmFtZSI6ImRpcGFrIGthbGF1bmkiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUxtNXd1MDFhMDVoRjlTT2NqZlA3RFJLdkIxU1V6TnVxbHdhVEhodk5uWnc9czk2LWMiLCJnaXZlbl9uYW1lIjoiZGlwYWsiLCJmYW1pbHlfbmFtZSI6ImthbGF1bmkiLCJpYXQiOjE2NjU5MTAzMjMsImV4cCI6MTY2NTkxMzkyMywianRpIjoiY2U0ZmQ0NzhiNWI0NjU1MjMxOGY2OGJmNWNkNjgwZThlZTM5MGUxNCJ9.TmhABH7VV6-FEkXwvquuQsVl1VoqGBwLzEQLb6hlWH-M61cZcr5e5G2UaTN8mry-GXVPPzZvXTV9vlDCK5v6oIk6G6xubj4dC2GUNMrVf_Hd0G0WknyJNSswOqAxlVDgfsLYmofma3EDvaoSZxVGiqknt3Qxi2RG6YSM_j0eEDbFE1EQr-EY8OX5ls6mlSOBffkB5kOo6oWDjxW9pyqjOYoiJc94L533JAUhSkf9IzjxFAsXyiE2YLAYDg98aoj4GIX2nJphpzxj6ULmYRyo30VxrlVVUB3JsDivz7duxH3MkX0KE8j8dYZsIzr5t0xAO-N7FuirDgtJ1ThKEsxQ6Q"
 }
+
+
+

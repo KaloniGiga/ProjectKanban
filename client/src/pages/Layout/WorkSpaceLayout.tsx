@@ -27,7 +27,7 @@ const getWorkSpaceDetails = async ({queryKey}:any) => {
 const data = {
     _id: 'ldieeiidjd',
     name: "socail",
-    description: "this is my first time of grow the new hill",
+    description: "",
     picture: null,
     myRole: "ADMIN"
   }

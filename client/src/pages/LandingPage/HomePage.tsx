@@ -28,8 +28,8 @@ function HomePage() {
       </section>
        
        {/* Right section */}
-      <section className=' basis-1/2 mt-3  flex justify-center'>
-          <div className='pb-4 bg-surface rounded drop-shadow-xl' style={{maxHeight: '270px', minHeight: '170px'}}>
+      <section className=' basis-1/2 mt-3 bg-surface flex justify-center'>
+          <div className='pb-4 rounded drop-shadow-xl' style={{maxHeight: '270px', minHeight: '170px'}}>
 
               <img src={HomePageImage} alt="Home page image" className='text-center w-full max-w-md' style={{maxHeight: '180px'}}/>
             

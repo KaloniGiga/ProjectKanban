@@ -4,12 +4,13 @@ import Button from '../button/Button';
 import Input from '../Input/Input';
 import AsyncSelect from 'react-select/async'
 import debounce from 'debounce-promise';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
 import axiosInstance from '../../http';
 import { hideModal } from '../../redux/features/modalslice';
 import { AxiosError } from 'axios';
+import { RootState } from '../../redux/app/store';
 
 interface UserObj {
   _id: string,
@@ -35,36 +36,47 @@ function CreateWorkSpaceModal() {
 
   const [isFirstSlide, setIsFirstSlide] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const {accessToken} = useSelector(
+    (state:RootState) => state.auth
+)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  
 
-  const handleChange = () => {
-
+  const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setValues({...values, [e.target.name] : e.target.value})
+    
   }
 
-  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+  const handleTextChange = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValues({...values, [e.target.name] : e.target.value})
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
       const workspaceValues = {
          name: values.name,
          description: values.description,
-         members: values.members.map((m) => m._id)
+         members: values.members ? values.members.map((m) => m._id): []
       }
+
+      console.log(workspaceValues)
 
       setIsSubmitting(true);
 
-      axiosInstance.post('/workspace', workspaceValues)
+      axiosInstance.post('/workspace/create', workspaceValues, {headers: {Authorization: `Bearer ${accessToken}`}})
       .then((res) => {
           const data = res.data;
           //update workspace list
-          queryClient.setQueryData([`getWorkSpaces`], (oldData: any) => {
-              return [...oldData, data];
-          });
+          // queryClient.setQueryData([`getWorkSpaces`], (oldData: any) => {
+          //     return [...oldData, data];
+          // });
 
           setIsSubmitting(false)
           //navigate to newly created workspace
-          
+          console.log(data);
           dispatch(hideModal());
       })
       .catch((error: AxiosError) => {
@@ -79,17 +91,17 @@ function CreateWorkSpaceModal() {
 
         }else if(error.request){
 
-          //add error toast
+           console.log("request has problem");
         }else {
 
           //add error toast
-
+         console.log("Oops, something went wrong")
 
         }
 
       })
 
-  }, [])
+  }
 
   const searchUsers = async (value: string) => {
 
@@ -115,13 +127,13 @@ function CreateWorkSpaceModal() {
     <div className='flex flex-col w-full items-center justify-center'>
        <h1 className='font-semibold text-xl'>Create your WorkSpace</h1>
 
-      <form onSubmit={handleSubmit} className="w-1/2">
-        <Input typeName='text' placeholder='WorkSpace Name' name='WorkSpace' label='WorkSpace' value='' onChange={handleChange}/>
+      <form  className="w-1/2">
+        <Input typeName='text' placeholder='WorkSpace Name' name='name' label='WorkSpace' value={values.name}  onChange={handleInputChange}/>
         
         <label htmlFor="description" className='font-semibold'>Description</label><br />
-        <textarea rows={3}  className='border-2 w-full border-black mt-3 p-2 mb-2' placeholder='Write description here...'></textarea><br />
+        <textarea rows={3}  className='border-2 w-full border-black mt-3 p-2 mb-2' placeholder='Write description here...' name="description" value={values.description}  onChange={handleTextChange}></textarea><br />
 
-       <Button name='Continue' hoverColor='black' classes='w-full' onClick={() => setIsFirstSlide(false)}/>
+       <Button name='Submit' hoverColor='black' classes='w-full' onClick={() => handleSubmit}/>
       </form>
       
     </div>
@@ -140,7 +152,7 @@ function CreateWorkSpaceModal() {
         name='async-select'
         />
 
-        <Button name="Invite Members" classes='w-1/2 mx-auto block'/>
+        <Button  name="Submit" classes='w-1/2 mx-auto block' onClick={() => handleSubmit}/>
 
         <Button name='Go Back' classes='w-1/2  block mx-auto bg-black hover:bg-secondary' onClick={() => setIsFirstSlide(true)}/>
     </div>

@@ -2,6 +2,9 @@
 
 import React from "react"
 
+export const ListType = "LIST";
+export const CardType = "CARD";
+
 export type WorkSpaceContext = {
     workSpaceId: string,
     myRole: string,
@@ -118,5 +121,49 @@ export interface Board {
 export interface SelectOption {
     id: string,
     name: string,
+}
+
+
+export interface ListObj {
+  _id: string,
+   name: string,
+   pos: string
+}
+
+export interface CardObj {
+  _id: string,
+   listId: string,
+   name: string,
+   pos: string,
+   coverImage?: string,
+   color: string,
+   description: string,
+   dueDate?: string,
+   members: MemberObj[],
+   labels ?: LabelObj[],
+   comments: 
+
+}
+
+export interface LabelObj {
+    _id: string;
+    name: string;
+    color: string;
+}
+
+export interface BoardLabel {
+    _id: string,
+    name: string,
+    color: string,
+    pos: number
+}
+
+export interface CommentObj {
+     _id: string;
+     comment: string,
+     user: MemberObj,
+     createdAt: string,
+     updatedAt: string,
+
 }
 

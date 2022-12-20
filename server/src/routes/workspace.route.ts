@@ -18,7 +18,7 @@ router.route('/workspace/:id/members').get(isLoggedIn, workSpaceCtrl.getAllWorkS
 
 router.route('/workspace/:id/member/add').put(isLoggedIn, workSpaceCtrl.addWorkSpaceMember);
 
-router.route('/workspace/:id/members/add').put(isLoggedIn, workSpaceCtrl.addWorkSpaceMembers);
+//router.route('/workspace/:id/members/add').put(isLoggedIn, workSpaceCtrl.addWorkSpaceMembers);
 
 router.route('/workspace/:id/member/:memberId').put(isLoggedIn, workSpaceCtrl.updateMemberRole);
 
@@ -31,3 +31,6 @@ router.route('/workspace/:id/settings').get(isLoggedIn, workSpaceCtrl.getWorkSpa
 router.route('/workspace/:id/settings').put(isLoggedIn, workSpaceCtrl.updateWorkSpaceSettings);
 
 router.route('/workspace/:id').delete(isLoggedIn, workSpaceCtrl.deleteWorkSpace);
+
+
+export default router;

@@ -12,6 +12,8 @@ import BoardName from "./BoardName/BoardName";
 import BoardVisibility from "./Boardvisibility/BoardVisibility";
 import InviteBtn from "./InviteBtn/InviteBtn";
 import JoinBtn from "./JoinBtn/JoinBtn";
+import {DndProvider} from 'react-dnd';
+import  {TouchBackend} from 'react-dnd-touch-backend';
 
 
 
@@ -63,7 +65,7 @@ function BoardDetail() {
         _id: '',
         name: 'social media'
       },
-      color: 'red',
+      color: '',
       role: 'ADMIN',
       visibility: 'PUBLIC',
       member: []
@@ -72,10 +74,10 @@ function BoardDetail() {
 
   return (
 
-    <div className="h-full bg-black">
+    <div className="h-full bg-black relative">
        {board && (
          <>
-            <div className="overlay fixed top-0 bottom-0 right-0 left-0"
+            <div className="overlay absolute top-0 bottom-0 right-0 left-0"
             style={{
               backgroundImage: `url(${board.bgImage})`,
               backgroundColor: !board.bgImage ? board.color : "",
@@ -138,7 +140,7 @@ function BoardDetail() {
                  )}
                </div>
 
-                <BoardMembers />
+                <BoardMembers boardId={id} workspaceId={board.workspace._id} members={board.member} role={board.role} />
 
                 {board.role === "ADMIN" && (
                   <>
@@ -176,7 +178,9 @@ function BoardDetail() {
             </div>
 
             <div>
-               <BoardLists boardId={id} workspaceId={board.workspace._id} myRole={board.role}/>
+              
+               {/* <BoardLists boardId={id} workspaceId={board.workspace._id} myRole={board.role}/> */}
+              
             </div>
            
           </>

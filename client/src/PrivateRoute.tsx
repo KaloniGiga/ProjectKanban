@@ -8,11 +8,10 @@ interface Props {
 
 export const PrivateRoute = ({children}:Props) => {
       
-    // const {accessToken , refreshToken} = useSelector(
-    //     (state:RootState) => state.auth
-    // )
-   const accessToken = 'ldidneodod';
-   const refreshToken = 'dkdiekeidiid';
+    const {accessToken , refreshToken} = useSelector(
+        (state:RootState) => state.auth
+    )
+
    
     const dispatch = useDispatch();
     const location = useLocation();

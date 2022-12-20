@@ -17,7 +17,7 @@ interface SidebarProps {
 function Sidebar({show, onClick}:SidebarProps) {
 
   return (
-    <div className={` ${show ? 'w-1/4' : 'w-12 bg-primary_light'}`}>
+    <div className={` ${show ? 'w-1/4' : 'w-12 '}`}>
 
       <div className={`${show ? "flex justify-between items-center px-3 py-2" : "ml-2"}`}>
        {show && <Logo size={20} /> }

@@ -1,15 +1,17 @@
 import Input from "../../component/Input/Input"
 import Button from "../../component/button/Button"
 import GoogleAuthButton from "../../component/GoogleAuth/GoogleAuthButton"
-import {NavLink} from 'react-router-dom';
+import {useNavigate,Navigate, NavLink} from 'react-router-dom';
 import React, {useState} from 'react';
 import axiosInstance from "../../http";
 import { useDispatch } from "react-redux";
 import { loginUser } from '../../redux/features/authSlice';
 
+
 function RegisterPage() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [values, setValues] = useState({
@@ -52,6 +54,8 @@ function RegisterPage() {
             }))
 
             setIsSubmitting(false)
+            navigate('/home')
+            
         })
         .catch((error) => {
             setIsSubmitting(false);
