@@ -127,7 +127,8 @@ export const createWorkSpace = async (req:any, res:Response, next:NextFunction) 
      });
 
      //new workspace created
-     
+     console.log("new workspace created", newWorkSpace)
+
       if(uniqueMemberIds.length > 0){
          
          const validMembersIds = await User.find({
@@ -153,9 +154,13 @@ export const createWorkSpace = async (req:any, res:Response, next:NextFunction) 
         role: "Admin",
      });
 
+     console.log("add members to the workspace")
+
       await newWorkSpace.save();
 
-     res.status(201).json({
+      console.log("new workspace saved")
+
+    return  res.status(201).json({
         success: true,
         workspace: {
             _id: newWorkSpace._id,
@@ -165,7 +170,11 @@ export const createWorkSpace = async (req:any, res:Response, next:NextFunction) 
             icon: newWorkSpace.picture,
             boards: []
         }
+
+        
      })
+
+     console.log("response sent to user")
 
    } catch (error) {
      res.status(500).json({

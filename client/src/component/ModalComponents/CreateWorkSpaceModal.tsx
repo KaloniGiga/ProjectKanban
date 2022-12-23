@@ -55,6 +55,8 @@ function CreateWorkSpaceModal() {
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+       
+    e.preventDefault();
 
       const workspaceValues = {
          name: values.name,
@@ -66,7 +68,7 @@ function CreateWorkSpaceModal() {
 
       setIsSubmitting(true);
 
-      axiosInstance.post('/workspace/create', workspaceValues, {headers: {Authorization: `Bearer ${accessToken}`}})
+      axiosInstance.post('/workspace/create', workspaceValues)
       .then((res) => {
           const data = res.data;
           //update workspace list
@@ -74,10 +76,11 @@ function CreateWorkSpaceModal() {
           //     return [...oldData, data];
           // });
 
-          setIsSubmitting(false)
+          setIsSubmitting(false);
           //navigate to newly created workspace
           console.log(data);
           dispatch(hideModal());
+          navigate(`home/workspace/${data.workspace._id}/boards`)
       })
       .catch((error: AxiosError) => {
          
@@ -114,11 +117,11 @@ function CreateWorkSpaceModal() {
   }
 
 
-  const delayFetch = useCallback(debounce(searchUsers, 300), []);
+  // const delayFetch = useCallback(debounce(searchUsers, 300), []);
 
-  const fetchUsers = (value: string) => {
-     return delayFetch(value)
-  }
+  // const fetchUsers = (value: string) => {
+  //    return delayFetch(value)
+  // }
 
 
   return (
@@ -127,13 +130,13 @@ function CreateWorkSpaceModal() {
     <div className='flex flex-col w-full items-center justify-center'>
        <h1 className='font-semibold text-xl'>Create your WorkSpace</h1>
 
-      <form  className="w-1/2">
+      <form  className="w-1/2" onClick={handleSubmit}>
         <Input typeName='text' placeholder='WorkSpace Name' name='name' label='WorkSpace' value={values.name}  onChange={handleInputChange}/>
         
         <label htmlFor="description" className='font-semibold'>Description</label><br />
         <textarea rows={3}  className='border-2 w-full border-black mt-3 p-2 mb-2' placeholder='Write description here...' name="description" value={values.description}  onChange={handleTextChange}></textarea><br />
 
-       <Button name='Submit' hoverColor='black' classes='w-full' onClick={() => handleSubmit}/>
+       <Button name='Submit' hoverColor='black' classes='w-full' />
       </form>
       
     </div>
@@ -143,16 +146,16 @@ function CreateWorkSpaceModal() {
 
        <label htmlFor="async-select" className='ml-5 font-semibold inline-block mb-6'>Invite Members (Optional)</label>
 
-       <AsyncSelect
+       {/* <AsyncSelect
         className='text-sm w-2/3 mx-auto block'
         isMulti={true}
         autoFocus={true}
         loadOptions={fetchUsers}
         id="async-select"
         name='async-select'
-        />
+        /> */}
 
-        <Button  name="Submit" classes='w-1/2 mx-auto block' onClick={() => handleSubmit}/>
+        <Button  name="Submit" classes='w-1/2 mx-auto block' />
 
         <Button name='Go Back' classes='w-1/2  block mx-auto bg-black hover:bg-secondary' onClick={() => setIsFirstSlide(true)}/>
     </div>

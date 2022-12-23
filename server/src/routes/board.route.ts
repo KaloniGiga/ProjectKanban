@@ -4,7 +4,8 @@ import * as BoardCtrl from '../controllers/board.controller';
 
 
 const router = express.Router();
-router.route('/boards').post(isLoggedIn, BoardCtrl.createBoard);
+
+router.route('/board/create').post(isLoggedIn, BoardCtrl.createBoard);
 
 router.route('/recentboard').get(isLoggedIn, BoardCtrl.getRecentlyVisitedBoards)
 

@@ -1,4 +1,21 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import validator from "validator";
+import { I_ListDocument } from "./list.model";
+import { I_UserDocument } from "./user.model";
+import { I_WorkSpaceDocument } from "./workspace.model";
+
+export interface I_BoardDocument extends mongoose.Document{
+    name: string,
+    description: string,
+    visibility: string,
+    lists:  mongoose.Types.ObjectId[],
+    workspaceId: I_WorkSpaceDocument & { _id: mongoose.Schema.Types.ObjectId },
+    labels: mongoose.Schema.Types.ObjectId[],
+    bgImage: string,
+    color: string,
+    members: { memberId: I_UserDocument & { _id: mongoose.Schema.Types.ObjectId; }; role: string; }[],
+    creator: mongoose.Schema.Types.ObjectId
+}
 
 
 const boardMemberSchema = new mongoose.Schema({
@@ -19,7 +36,7 @@ const boardMemberSchema = new mongoose.Schema({
 })
 
 
-const boardSchema = new mongoose.Schema({
+const boardSchema:Schema<I_BoardDocument> = new mongoose.Schema({
 
     name: {
         type: String,
@@ -51,12 +68,22 @@ const boardSchema = new mongoose.Schema({
         default: [],
     },
 
+    bgImage: {
+        type: String,
+        validate: {
+            validator: function(value:string){
+                return validator.isURL(value)
+            },
+            message: "Invalid URL"
+        }
+    },
+
     color: {
         type: String,
         default: 'white'
     },
 
-    workspaceid: {
+    workspaceId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'WorkSpace',
         require: true,
@@ -65,7 +92,7 @@ const boardSchema = new mongoose.Schema({
     lists: {
         type: [
             {
-                type: mongoose.Schema.Types.ObjectId,
+                type: mongoose.Types.ObjectId,
                 ref: 'List',
                 required: true,
             },

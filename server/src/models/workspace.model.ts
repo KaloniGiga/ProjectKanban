@@ -7,7 +7,7 @@ export interface I_WorkSpaceDocument extends mongoose.Document{
     description: string,
     picture: string,
     isFavorite: boolean,
-    boards: [],
+    boards: mongoose.Types.ObjectId[],
     members: { memberId: I_UserDocument & { _id: mongoose.Schema.Types.ObjectId; }; role: string; }[],
     creator: mongoose.Schema.Types.ObjectId
 }
@@ -32,7 +32,6 @@ const WorkSpaceSchema: Schema<I_WorkSpaceDocument> = new mongoose.Schema({
 
     picture: {
         type: String,
-        required: true,
         trim: true
     },
 

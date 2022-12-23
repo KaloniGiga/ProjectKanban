@@ -7,6 +7,7 @@ import userRoutes from './routes/userProfile.route'
 import path  from 'path'
 import { getMaxListeners } from 'process'
 import workspaceRoutes from './routes/workspace.route'
+import boardRoutes from './routes/board.route'
 
 
 //configure the dotenv
@@ -23,7 +24,7 @@ const STATIC_PATH = process.env.STATIC_PATH || "/static";
 const PUBLIC_DIR_NAME = process.env.PUBLIC_DIR_NAME || "public";
 
 //middleware
-app.use(cors({origin: 'http://localhost:5173', credentials: true, optionsSuccessStatus: 200}));
+app.use(cors({ credentials: true}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(BASE_PATH + STATIC_PATH , express.static(path.join(__dirname, PUBLIC_DIR_NAME)))
@@ -46,6 +47,7 @@ app.get('/api/v1/user/readme', (req, res, next) => {
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', authRoutes);
 app.use('/api/v1/', workspaceRoutes)
+app.use('/api/v1', boardRoutes)
 
 const PORT = process.env.PORT || 4000;
 

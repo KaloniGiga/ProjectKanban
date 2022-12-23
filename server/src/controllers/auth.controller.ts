@@ -12,8 +12,38 @@ import { Error } from 'mongoose';
 import { SendEmail } from '../utils/sendEmail';
 import { OAuth2Client } from 'google-auth-library';
 import { Console } from 'console';
+import jwt from 'jsonwebtoken'
+ 
 
 
+export const refreshAccessToken = async (req:Request, res:Response, next:NextFunction) => {
+     try {
+         const {refreshToken} = req.body;
+
+         //validate refresh token
+         if(!refreshToken){
+            return next(new ErrorHandler(401, "RefreshToken is required"))
+         }
+
+          jwt.verify(refreshToken, process.env.REFRESH_KEY_SECRET!, async (error:any, data:any) =>{
+            if(error){
+                return next(new ErrorHandler(401, "Invalid refresh token, please login"))
+            }
+
+           const isRefreshTokenValid = await RefreshToken.findOne({userId: data._id, refreshToken: refreshToken });
+
+           if(!isRefreshTokenValid){
+            return next(new ErrorHandler(401, "Refresh token is not valid"))
+           }
+
+           const newAccessToken = generateAccessToken({_id: data._id,});
+
+           return res.status(200).json({success: true, accessToken: newAccessToken})
+         })
+     }catch(error){
+        return res.status(500).json({success: true, message: "Oops! Something went wrong"})
+     }
+}
 
 export const registerUser = async (req: Request, res:Response, next:NextFunction) => {
     

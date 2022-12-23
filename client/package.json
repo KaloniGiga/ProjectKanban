@@ -25,7 +25,8 @@
     "react-toastify": "^9.0.8",
     "react-tooltip": "^4.5.0",
     "react-trello": "^2.2.11",
-    "react-window": "^1.8.8"
+    "react-window": "^1.8.8",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@types/debounce-promise": "^3.1.5",
@@ -38,6 +39,7 @@
     "@types/react-toastify": "^4.1.0",
     "@types/react-tooltip": "^4.2.4",
     "@types/react-window": "^1.8.5",
+    "@types/redux-persist": "^4.3.1",
     "@vitejs/plugin-react": "^2.1.0",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.17",

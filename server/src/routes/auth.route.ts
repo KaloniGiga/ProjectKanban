@@ -9,4 +9,6 @@ router.route('/login').post(AuthController.loginUser);
 
 router.route('/google').post(AuthController.googleAuth);
 
+router.route('/refresh').post(AuthController.refreshAccessToken)
+
 export default router;

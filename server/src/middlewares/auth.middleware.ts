@@ -6,8 +6,11 @@ import { PayloadType } from "../utils/Token";
 export const isLoggedIn = async (req:any, res:Response, next:NextFunction) => {
 
      const header = req.headers["authorization"];
+     
 
      const accessToken = header && header.split(" ")[1];
+
+     
 
      if(!accessToken){
         return res.status(401).json({

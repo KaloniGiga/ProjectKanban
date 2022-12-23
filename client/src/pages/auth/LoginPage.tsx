@@ -56,8 +56,6 @@ function LoginPage() {
             })
            )
             
-  
-           console.log(accessToken, refreshToken)
            setIsSubmitting(false);
            navigate("/home");
            
