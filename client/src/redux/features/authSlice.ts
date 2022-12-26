@@ -1,5 +1,6 @@
 
 import {createSlice, PayloadAction } from '@reduxjs/toolkit'
+import {  removeToken, saveAccessToken, saveToken } from '../../service/saveRemove';
 import { UserObj } from '../../types/component.types';
 
 
@@ -29,7 +30,8 @@ const authSlice = createSlice({
          loginUser: (state, action: PayloadAction<Tokens>) => {
               
             const {accessToken, refreshToken} = action.payload;
-
+            
+            
             state.accessToken = accessToken;
             state.refreshToken = refreshToken;
  
@@ -37,11 +39,15 @@ const authSlice = createSlice({
 
 
          logOutUser: (state) => {
-
-            state.accessToken = null;
-            state.refreshToken = null;
-            state.user = null;
             
+            localStorage.removeItem('persist:root')
+            location.reload();
+         },
+
+         setAccessToken: (state, action: PayloadAction<string>) => {
+            const accessToken = action.payload;
+            state.accessToken = accessToken;
+
          },
 
          setCurrentUser: (state, action: PayloadAction<UserObj>) => {
@@ -53,7 +59,8 @@ const authSlice = createSlice({
 export const {
     loginUser,
     logOutUser,
-    setCurrentUser
+    setCurrentUser,
+    setAccessToken
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -199,7 +199,7 @@ export const loginUser = async (req:Request, res:Response, next:NextFunction) =>
     if(!password){
         return next(new ErrorHandler(400, "Password is required"))
     }
-
+    console.log("password is valid")
     
     //check if user exists or not
     const user = await User.findOne({email:email}).select('hashedPassword');
@@ -207,6 +207,7 @@ export const loginUser = async (req:Request, res:Response, next:NextFunction) =>
     if(!user){
         return next(new ErrorHandler(400, "email and password doesnot match"))
     }
+    console.log("email and password matched")
 
     if(user && user.isGoogleAuth){
         return next(new ErrorHandler(400, "This account can be logged in with Google"));
@@ -214,11 +215,12 @@ export const loginUser = async (req:Request, res:Response, next:NextFunction) =>
      
     
     const passwordVerified = await bcrypt.compare(password, user.hashedPassword);
-
+       console.log("password is verifying")
       if(!passwordVerified){
         return next(new ErrorHandler(400, "the email and password doesnot match"))
       }
-
+     
+    console.log("password verified")
     //  if(!user.emailVerified){
     //     return next(new ErrorHandler(400, "them email is not verified"));
     //  }

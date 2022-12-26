@@ -42,9 +42,9 @@ axiosInstance.interceptors.response.use(
             try {
                 await axios.post(
                     `${import.meta.env.VITE_BASE_URL}/refresh`,
-                    {refreshToken: store.getState().auth.refreshToken}
+                    {"refreshToken": store.getState().auth.refreshToken}
                 );
-
+                
                 return axiosInstance.request(originalRequest);
             } catch (err:any) {
                 console.log(err.message);

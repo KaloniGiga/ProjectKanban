@@ -1,4 +1,4 @@
-import { MemberObj } from "../../../types/component.types";
+import { BoardMemberObj } from "../../../types/component.types";
 import BoardMember from "./BoardMember";
 
 
@@ -6,7 +6,7 @@ import BoardMember from "./BoardMember";
 interface Props {
    boardId: string | undefined,
    workspaceId: string,
-   members: MemberObj[],
+   members: BoardMemberObj[],
    role: string
 }
 
@@ -14,13 +14,13 @@ interface Props {
 function BoardMembers({boardId, workspaceId, role, members}:Props) {
   
 
-  const boardAdmins = members.filter((member:MemberObj) => (member.role === "ADMIN"));
+  const boardAdmins = members.filter((member:BoardMemberObj) => (member.role === "ADMIN"));
   
   return (
     <div>
        {members.length > 0 ? (
          <div className="flex flex-col items-center">
-          {members.map((member:MemberObj) => {
+          {members.map((member:BoardMemberObj) => {
 
               return <BoardMember
                       key={member._id}

@@ -9,11 +9,11 @@ import { HiOutlineStar } from 'react-icons/hi';
 
 interface BoardPropsType{
    board: BoardObj,
-   workSpaceId: string
+   workspaceId: string
 }
 
 
-function Board({board, workSpaceId}:BoardPropsType) {
+function Board({board, workspaceId}:BoardPropsType) {
 
     const dispatch = useDispatch();
     const queryClient = useQueryClient();

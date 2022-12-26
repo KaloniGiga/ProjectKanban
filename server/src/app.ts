@@ -30,23 +30,12 @@ app.use(express.urlencoded({extended: true}));
 app.use(BASE_PATH + STATIC_PATH , express.static(path.join(__dirname, PUBLIC_DIR_NAME)))
 
 
-app.get('/api/v1/user/readme', (req, res, next) => {
-    const user = {
-        _id: "kdldieneiieldi3938330",
-        username: "dipakkalauni",
-        email: "dipakkalauni8@gmail.com",
-        avatar: "profil.jpg",
-        emailVerified: true,
-        isGoogleAuth: false
-    }
-    
-    return res.status(200).json({success: true, user})
-})
+
 
 //configure routes
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', authRoutes);
-app.use('/api/v1/', workspaceRoutes)
+app.use('/api/v1', workspaceRoutes)
 app.use('/api/v1', boardRoutes)
 
 const PORT = process.env.PORT || 4000;

@@ -86,9 +86,9 @@ export interface BoardObj {
 }
 
 
-export interface MemberObj {
+export interface BoardMemberObj {
     _id: string,
-    profile: string,
+    picture: string,
     username: string,
     role: string
 }
@@ -101,21 +101,22 @@ export interface SettingsObj {
 
 }
 
-
 export interface Board {
-    workSpace: any
     _id: string,
     name: string,
     description: string,
-    color: string,
-    bgImage: string,
-    isFavorite: boolean,
-    FavoriteId: string,
-    workspaceId: string,
     visibility: string,
     role: string,
-    lists: [],
-    member: [MemberObj]
+    listId: string[],
+    isFavorite: boolean,
+    FavoriteId: string | undefined,
+    color: string,
+    bgImage: string | undefined,
+    workspace: {
+        _id: string,
+        name: string,
+    },
+    members: BoardMemberObj[]
 }
 
 export interface SelectOption {
@@ -139,9 +140,9 @@ export interface CardObj {
    color: string,
    description: string,
    dueDate?: string,
-   members: MemberObj[],
+   members: BoardMemberObj[],
    labels ?: LabelObj[],
-   comments: 
+   comments: CommentObj[]
 
 }
 
@@ -161,7 +162,7 @@ export interface BoardLabel {
 export interface CommentObj {
      _id: string;
      comment: string,
-     user: MemberObj,
+     user: BoardMemberObj,
      createdAt: string,
      updatedAt: string,
 

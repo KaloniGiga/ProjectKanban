@@ -4,7 +4,7 @@ import React from 'react'
 
 function Loader() {
   return (
-    <div>L</div>
+    <div>Loading...</div>
   )
 }
 

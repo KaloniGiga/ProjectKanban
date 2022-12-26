@@ -14,8 +14,7 @@ import InviteBtn from "./InviteBtn/InviteBtn";
 import JoinBtn from "./JoinBtn/JoinBtn";
 import {DndProvider} from 'react-dnd';
 import  {TouchBackend} from 'react-dnd-touch-backend';
-
-
+import Loader from "../Loader/loader";
 
 
 function BoardDetail() {
@@ -41,36 +40,33 @@ function BoardDetail() {
     const getBoard = async ({querykey}:any) => {
          const response  = await axiosInstance(`boards/${querykey[1]}`);
          const data = response.data;
-
+         console.log(data.board);
          return data.board;
+         
     }
 
-    // const {isLoading, data, error} = useQuery<Board | undefined, any>(["getBoard", id], getBoard);
-
-    // if(isLoading){
-
-    // }
+     const {isLoading, data:board, error} = useQuery<Board | undefined, any, Board, string[]>(["getBoard", id!], getBoard);
 
 
-    // if(error){
+     if(isLoading){
+          return (
+            <div className="flex w-full justify-center items-center">
+              <Loader />
+            </div>
+          )
+     }
 
 
-    // }
+     if(error){
+          return (
+            <div className="flex w-full items-center justify-center">
+              <h3>Oops! something went wrong</h3>
+              <button>Retry</button>
+            </div>
+          )
 
-    const board = {
-      name: 'society',
-      isFavorite: true,
-      bgImage: '',
-      workspace: {
-        _id: '',
-        name: 'social media'
-      },
-      color: '',
-      role: 'ADMIN',
-      visibility: 'PUBLIC',
-      member: []
+     }
 
-    }
 
   return (
 
@@ -140,13 +136,13 @@ function BoardDetail() {
                  )}
                </div>
 
-                <BoardMembers boardId={id} workspaceId={board.workspace._id} members={board.member} role={board.role} />
+                <BoardMembers boardId={id} workspaceId={board.workspace._id} members={board.members} role={board.role} />
 
                 {board.role === "ADMIN" && (
                   <>
                    <InviteBtn />
                   
-                   {!board.member.find((member:any) => member._id === user?._id) && (
+                   {!board.members.find((member:any) => member._id === user?._id) && (
                       <JoinBtn />
                    )}
                    </>
@@ -154,7 +150,7 @@ function BoardDetail() {
 
                 {board.role === "NORMAL"  && (
                   <>
-                    {!board.member.find((member: any) => member._id === user?._id) ? (
+                    {!board.members.find((member: any) => member._id === user?._id) ? (
                       <JoinBtn />
                     ): (
                       <InviteBtn />

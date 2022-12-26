@@ -9,7 +9,7 @@ export interface PayloadType {
 }
 
 export const generateAccessToken = async (payload:PayloadType) => {
-    const accessToken = jwt.sign(payload, process.env.ACCESS_KEY_SECRET!, {expiresIn: "5m"});
+    const accessToken = jwt.sign(payload, process.env.ACCESS_KEY_SECRET!, {expiresIn: "1d"});
     console.log("access token generate");
 
     return accessToken;

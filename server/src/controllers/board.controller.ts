@@ -25,16 +25,21 @@ export const createBoard = async (req:any, res:Response, next:NextFunction) => {
        return next(new ErrorHandler(400, "workspaceid is not valid"))
      }
      
+     console.log("wokspaceId validate")
      //validate name
      if(!name){
        return next(new ErrorHandler(400, "board name is required"));
      }else if(name.length>50){
        return next(new ErrorHandler(400, "board name should be smaller than 50 characters"));
      }
+
+     console.log("name validated")
      
      if(description && description.length > 255){
       return next(new ErrorHandler(400, "description must be less than 255 chars"))
      }
+
+     console.log("description validated")
 
     //validate color
     if(color){
@@ -61,7 +66,8 @@ export const createBoard = async (req:any, res:Response, next:NextFunction) => {
     if(!workspace){
       return next(new ErrorHandler(404, "Workspace not found"))
     }
-
+  
+    console.log("workspace found in the database")
     //check the role of the user in current workspace
 
 
@@ -86,15 +92,20 @@ export const createBoard = async (req:any, res:Response, next:NextFunction) => {
        newBoard.visibility = visibility
     }
 
+    console.log("create a new bord")
+
     //add current user as admin of board
     newBoard.members.push({memberId: req.user._id, role: "ADMIN"})
-
+   console.log("add the creator as board member")
     //add the board to the workspace and save both
-    await newBoard.save();
+    await newBoard.save()
+
+    console.log("save the new board")
 
     workspace.boards.push(newBoard._id);
-  
+    
     await workspace.save();
+    console.log("push the board into workspace and save the workspace")
 
     res.status(200).json({success: true, board: newBoard})
 
@@ -108,6 +119,7 @@ export const createBoard = async (req:any, res:Response, next:NextFunction) => {
 
 
 export const getBoardDetail = async (req:any, res:Response, next:NextFunction) => {
+
     try{
       const {boardId} = req.params;
 
@@ -116,7 +128,8 @@ export const getBoardDetail = async (req:any, res:Response, next:NextFunction) =
       }else if(!mongoose.isValidObjectId(boardId)){
         return next(new ErrorHandler(400, "Invalid board _id"))
       }
-
+       
+      console.log("boardId validated")
       //check if the board exist
       const board = await Board.findOne({_id: boardId })
       .populate({path: "members", populate: {path: "memberId", select: "_id username picture"}})
@@ -127,11 +140,14 @@ export const getBoardDetail = async (req:any, res:Response, next:NextFunction) =
         return next(new ErrorHandler(404, "Board not found"))
       }
 
-      console.log(board);
+      console.log("find the board having boardId");
 
       const isFavorite = await Favorite.findOne({resourceId: board._id, userId: req.user._id, type: "BOARD"})
-      
+      console.log("check if the board is you favorite board")
+
       const isMember = board.members.find((member:any) => member.memberId.toString() === req.user._id.toString());
+      console.log("check if you are member of that board", isMember)
+
 
       //if user is a member of board update his recent board list
       if(isMember){
@@ -140,6 +156,7 @@ export const getBoardDetail = async (req:any, res:Response, next:NextFunction) =
         if(recentBoard){
           recentBoard.lastVisited = Date.now();
           await recentBoard.save();
+         
         }else {
            const newRecentBoard = new RecentBoard({
               userId: req.user._id,
@@ -147,6 +164,7 @@ export const getBoardDetail = async (req:any, res:Response, next:NextFunction) =
            })
 
            await newRecentBoard.save();
+           console.log("added to your recently visited board model")
         }
 
         res.status(200).json({
@@ -180,12 +198,13 @@ export const getBoardDetail = async (req:any, res:Response, next:NextFunction) =
          member.memberId.toString() === req.user._id.toString()
      })?.role;
 
-     if((workspaceRole !== "ADMIN" && workspaceRole != "NORMAL") || (workspaceRole === "NORMAL") && board.visibility === "PRIVATE" ){
+     if((workspaceRole !== "ADMIN" && workspaceRole !== "NORMAL") || (workspaceRole === "NORMAL") && board.visibility === "PRIVATE" ){
         
         return next(new ErrorHandler(404, "Board not found"));
      }
 
     //update the recently visited board for the user
+    console.log("you are a member of the workspace and board is public ")
 
     const recentBoard = await RecentBoard.findOne({
       userId: req.user._id,
@@ -203,6 +222,8 @@ export const getBoardDetail = async (req:any, res:Response, next:NextFunction) =
 
      await newBoard.save();
    }
+
+   console.log("board added to you recent visited board model")
 
     res.status(200).json({
        success: true,
@@ -247,7 +268,8 @@ export const  updateBoardVisibility= async (req:Request, res:Response, next:Next
 }
 
 export const getRecentlyVisitedBoards = async (req:any, res:Response, next:NextFunction) => {
-   try {
+   
+  try {
       //get the recently visited boards form the database
      const recentBoards = await RecentBoard.find({userId: req.user._id}).select("_id boardId")
      .populate({

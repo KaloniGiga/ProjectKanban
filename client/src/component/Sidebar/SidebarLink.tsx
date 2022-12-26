@@ -13,14 +13,11 @@ interface SidebarLinkProps {
 
 function SidebarLink({show, to, Icon, text}:SidebarLinkProps) {
 
-    const [currentActive, setCurrentActive] = useState(false);
-
   return (
 
      <NavLink to={to}
       className={({isActive}) => {
         
-         setCurrentActive(isActive);
          return `bg-surface  flex items-center text-sm 
          ${isActive ? "bg-primary_light hover:primary_dark" : "hover:primary_light" }
          ${!show ? "py-4 px-2" : "px-4 py-2"}`

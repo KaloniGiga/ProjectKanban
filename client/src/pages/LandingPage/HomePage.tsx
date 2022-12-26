@@ -1,4 +1,5 @@
 import HomePageImage from '../../assets/HomePageImage.jpg';
+import RecentBoards from '../../component/RecentlyViewed/recentBoards';
 
 function HomePage() {
 
@@ -12,6 +13,7 @@ function HomePage() {
 
         <h2 className='font-bold text-xl mb-4'>Recently Viewed</h2>
         {/* Recent Boards component */}
+          <RecentBoards />
 
       </div>
 

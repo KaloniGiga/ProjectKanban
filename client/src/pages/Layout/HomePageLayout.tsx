@@ -9,7 +9,7 @@ import Modal from "../../component/Modal/Modal"
 function HomePageLayout() {
    const dispatch = useDispatch();
 
-   const {show} = useSelector((state: RootState) => state.sidebar)
+  const {show} = useSelector((state: RootState) => state.sidebar)
    const modal = useSelector((state: RootState) => state.modal);
    
    const handleClick = () => {

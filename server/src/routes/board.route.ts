@@ -9,7 +9,7 @@ router.route('/board/create').post(isLoggedIn, BoardCtrl.createBoard);
 
 router.route('/recentboard').get(isLoggedIn, BoardCtrl.getRecentlyVisitedBoards)
 
-router.route('/board/:id').get(isLoggedIn,BoardCtrl.getBoardDetail);
+router.route('/board/:boardId').get(isLoggedIn, BoardCtrl.getBoardDetail);
 
 
 export default router;

@@ -21,7 +21,7 @@ function WorkSpaceItem({id, name}:WorkSpaceItemProp) {
         const dispatch = useDispatch();
         const [showContent , setShowContent] = useState(false);
 
-        const {currentActiveWorkSpace} = useSelector((state: RootState) => state.workSpaceMenu );
+        const {currentActiveWorkSpace} = useSelector((state: RootState) => state.WorkSpaceMenu );
 
   return (
     <div className='flex flex-col justify-center w-full pl-5 pr-2 bg-surface'>
