@@ -22,42 +22,34 @@ function WorkSpaceList() {
    }
 
 
-   //const {isLoading, data, error} = useQuery<WorkSpaceObj[] | undefined, any >(["getWorkSpaces"], getWorkSpaces)
+   const {isLoading, data, error} = useQuery<WorkSpaceObj[] | undefined, any >(["getWorkSpaces"], getWorkSpaces)
 
-   // if(isLoading){
+   if(isLoading){
       
-   //    return (
-   //       <div className='h-15 w-full flex items-center justify-center'>
-   //          <Loader />
-   //       </div>
-   //    )
-   // }
+      return (
+         <div className='h-15 w-full flex items-center justify-center'>
+            <Loader />
+         </div>
+      )
+   }
 
 
 
-   // if(error){
+   if(error){
      
-   //    return (
-   //       <div className='w-full h-15 flex items-center justify-center'>
+      return (
+         <div className='w-full h-15 flex items-center justify-center'>
 
-   //          <div className='flex flex-col items-center justify-center'>
-   //              <span className='text-sm text-primary'>Oops! Something went wrong.</span>
-   //               <button type='button' onClick={() => {
-   //                  queryClient.invalidateQueries(["getWorkSpaces"]);
-   //               }}>Retry</button>
-   //          </div>
-   //       </div>
-   //    )
-   // }
+            <div className='flex flex-col items-center justify-center'>
+                <span className='text-sm text-primary'>Oops! Something went wrong.</span>
+                 <button type='button' onClick={() => {
+                    queryClient.invalidateQueries(["getWorkSpaces"]);
+                 }}>Retry</button>
+            </div>
+         </div>
+      )
+   }
 
- const data = [{
-     _id: "ldieniiiddue",
-     name: "social",
-     picture: 'profile.jpg',
-     isFavourite: false,
-     FavouriteId: null,
-     role: 'Admin'
- },]
 
   return (
    <>

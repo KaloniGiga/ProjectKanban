@@ -29,7 +29,7 @@ const boardMemberSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: [],
-        default: 'Normal'
+        default: 'NORMAL'
     },
 
 

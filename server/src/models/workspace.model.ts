@@ -8,8 +8,9 @@ export interface I_WorkSpaceDocument extends mongoose.Document{
     picture: string,
     isFavorite: boolean,
     boards: mongoose.Types.ObjectId[],
-    members: { memberId: I_UserDocument & { _id: mongoose.Schema.Types.ObjectId; }; role: string; }[],
-    creator: mongoose.Schema.Types.ObjectId
+    members: { memberId: I_UserDocument & { _id: mongoose.Schema.Types.ObjectId }; role: string; }[],
+    creator: mongoose.Schema.Types.ObjectId,
+    visibility: string,
 }
 
 
@@ -63,8 +64,8 @@ const WorkSpaceSchema: Schema<I_WorkSpaceDocument> = new mongoose.Schema({
                 },
                 role: {
                     type: String,
-                    enum: ['Admin', 'Normal', 'Observer'],
-                    default: 'Normal'
+                    enum: ['ADMIN', 'NORMAL'],
+                    default: 'NORMAL'
                 }
             }
         ],
@@ -79,7 +80,10 @@ const WorkSpaceSchema: Schema<I_WorkSpaceDocument> = new mongoose.Schema({
         required: true,
     },
 
-
+   visibility: {
+    type: String,
+    default: "PUBLIC",
+   }
 
 
 }, { timestamps: true });

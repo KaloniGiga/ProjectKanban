@@ -18,47 +18,33 @@ function FavoriteList() {
     }
 
 
-    //const {isLoading, data, error } = useQuery<FavoriteObj[] | undefined, any, FavoriteObj[], string[]>(['getFavorites'], getFavorites);
-     
-   const data:FavoriteObj[] = [{
-    _id: "kdiejifiodiej",
-    name: "social",
-    resourceId: "lidineiddine",
-    type: "SPACE"  
- },
- {
-  _id: "kdiejifiodhuyy",
-  name: "media",
-  resourceId: "lidineidjhue",
-  type: "SPACE"  
-}
-  ];
+    const {isLoading, data, error } = useQuery<FavoriteObj[] | undefined, any, FavoriteObj[], string[]>(['getFavorites'], getFavorites);
 
-  // if(isLoading) {
+  if(isLoading) {
 
-  //      return (
-  //      <div className='w-full flex justify-center items-center' style={{height: '7rem'}}>
-  //       <Loader />
-  //      </div>
-  //      )
-  //   }
+       return (
+       <div className='w-full flex justify-center items-center' style={{height: '7rem'}}>
+        <Loader />
+       </div>
+       )
+    }
 
 
-  //   if(error) {
-  //     return (
-  //     <div className='w-full flex justify-center items-center' style={{height: '7rem'}}>
+    if(error) {
+      return (
+      <div className='w-full flex justify-center items-center' style={{height: '7rem'}}>
           
-  //         <div className='flex flex-col justify-center items-center'>
-  //           <span className='text-primary'>Oops! Something went wrong.</span>
-  //           <button type="button" className='text-primary border-1' onClick={ () => {
-  //             queryClient.invalidateQueries(["getFavorites"]);
-  //            }
-  //           }>Retry</button>
-  //         </div>
-  //     </div>
-  //     )
+          <div className='flex flex-col justify-center items-center'>
+            <span className='text-primary'>Oops! Something went wrong.</span>
+            <button type="button" className='text-primary border-1' onClick={ () => {
+              queryClient.invalidateQueries(["getFavorites"]);
+             }
+            }>Retry</button>
+          </div>
+      </div>
+      )
 
-  //   }
+    }
 
   return (
      <>
